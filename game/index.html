@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ember &amp; Tide — Duel of the Four Elements</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="table" class="hidden">
+  <!-- Opponent zone -->
+  <section id="opponent-zone" aria-label="Opponent">
+    <div class="fighter opponent">
+      <div class="portrait">🌊</div>
+      <div class="fighter-info">
+        <div class="fighter-name">Sage of the Deep <span class="tag">AI OPPONENT</span></div>
+        <div class="life-row">
+          <div class="life-bar"><div id="ai-life-fill" class="life-fill"></div></div>
+          <div id="ai-life-text" class="life-text">30 / 30</div>
+          <div id="ai-shield" class="shield-badge hidden">🛡️ 0</div>
+          <div id="ai-burn" class="burn-badge hidden">🔥 Burn 0</div>
+        </div>
+      </div>
+      <div class="score-box">Damage dealt<br><strong id="ai-score">0</strong></div>
+    </div>
+    <div id="ai-hand" class="hand opponent-hand" aria-label="Opponent hand"></div>
+  </section>
+
+  <!-- Arena -->
+  <section id="arena">
+    <div id="attunement" class="attunement">Attunement: 🔥 Ember — Ember cards deal +2 damage this turn</div>
+    <div id="arena-card" class="arena-card"><span class="arena-placeholder">The table awaits a card…</span></div>
+    <div id="log" class="log" aria-live="polite"></div>
+  </section>
+
+  <!-- Player zone -->
+  <section id="player-zone" aria-label="Player">
+    <div class="fighter player">
+      <div class="portrait">🔥</div>
+      <div class="fighter-info">
+        <div class="fighter-name">Alday <span class="tag">YOU</span></div>
+        <div class="life-row">
+          <div class="life-bar"><div id="player-life-fill" class="life-fill"></div></div>
+          <div id="player-life-text" class="life-text">30 / 30</div>
+          <div id="player-shield" class="shield-badge hidden">🛡️ 0</div>
+          <div id="player-burn" class="burn-badge hidden">🔥 Burn 0</div>
+        </div>
+      </div>
+      <div class="energy-box">Energy<br><strong id="energy-text">3 / 3</strong><div id="energy-pips" class="pips"></div></div>
+      <div class="score-box">Damage dealt<br><strong id="player-score">0</strong></div>
+      <div class="score-box">Turn<br><strong id="turn-text">1</strong></div>
+    </div>
+    <div id="player-hand" class="hand player-hand" aria-label="Your hand"></div>
+    <div class="controls">
+      <button id="end-turn" class="btn gold">End Turn ⏎</button>
+      <span class="hint">Click a card or press 1–8 to play it · Space ends your turn</span>
+    </div>
+  </section>
+</div>
+
+<!-- Title screen -->
+<div id="title-screen">
+  <div class="title-inner">
+    <div class="title-elements">🔥 ❄️ 💧 🪨</div>
+    <h1>EMBER <span class="amp">&amp;</span> TIDE</h1>
+    <p class="subtitle">Duel of the Four Elements</p>
+    <p class="tagline">A complete card battler. You against the Sage of the Deep — 30 life each, one table, no mercy.</p>
+    <div class="legend">
+      <span class="chip ember">🔥 Ember — burns</span>
+      <span class="chip frost">❄️ Frost — shields &amp; draws</span>
+      <span class="chip tide">💧 Tide — heals &amp; crashes</span>
+      <span class="chip stone">🪨 Stone — hits the hardest</span>
+    </div>
+    <div class="rules-box">
+      <strong>How to play:</strong> Each turn you gain energy and draw cards. Play cards to damage the Sage,
+      shield yourself, or heal. Cards matching the turn's <em>Attunement</em> deal +2 damage. Play two cards of
+      the same element in one turn to trigger <em>Resonance</em> (+3 damage). Reduce the Sage to 0 life to win.
+    </div>
+    <button id="play-btn" class="btn gold big">▶ Play the Duel</button>
+    <p class="foot">Original game · 16 unique cards · No network needed · Keyboard &amp; mouse</p>
+  </div>
+</div>
+
+<!-- End screen -->
+<div id="end-screen" class="hidden">
+  <div class="end-inner">
+    <div id="end-glyph" class="end-glyph">🏆</div>
+    <h2 id="end-title">VICTORY</h2>
+    <p id="end-line" class="end-line"></p>
+    <div class="end-stats">
+      <div>Damage dealt <strong id="end-score">0</strong></div>
+      <div>Turns <strong id="end-turns">0</strong></div>
+      <div>Life left <strong id="end-life">0</strong></div>
+    </div>
+    <button id="again-btn" class="btn gold big">↻ Duel Again</button>
+  </div>
+</div>
+
+<p id="status" role="status" aria-live="polite"></p>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
