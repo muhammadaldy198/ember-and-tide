@@ -1,0 +1,114 @@
+/* Ember & Tide — table styling. Dark felt, gold trim, readable cards. */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(ellipse at center, #14532d 0%, #0b2e1b 55%, #071f12 100%);
+  color: #f5f0e1;
+}
+.hidden { display: none !important; }
+#status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Table layout ---------- */
+#table { display: flex; flex-direction: column; height: 100vh; padding: 10px 18px; gap: 6px; }
+#opponent-zone, #player-zone { flex: 0 0 auto; }
+#arena { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; gap: 6px; min-height: 0; }
+
+.fighter { display: flex; align-items: center; gap: 12px; }
+.portrait { font-size: 34px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.35); border: 2px solid #d4af37; border-radius: 50%; }
+.fighter-name { font-size: 17px; font-weight: 700; letter-spacing: .4px; }
+.tag { font-size: 10px; background: #d4af37; color: #1a1207; padding: 2px 6px; border-radius: 8px; vertical-align: middle; margin-left: 6px; }
+.life-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.life-bar { width: 240px; height: 16px; background: rgba(0,0,0,.55); border: 1px solid #d4af37; border-radius: 8px; overflow: hidden; }
+.life-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #4ade80); transition: width .4s; }
+.life-text { font-weight: 700; font-size: 14px; min-width: 58px; }
+.shield-badge, .burn-badge { font-size: 13px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+.shield-badge { background: #1d4ed8; }
+.burn-badge { background: #b91c1c; }
+.score-box, .energy-box { margin-left: auto; text-align: center; font-size: 11px; color: #d8d2bd; background: rgba(0,0,0,.3);
+  padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(212,175,55,.4); }
+.score-box strong, .energy-box strong { font-size: 18px; color: #fff; display: block; }
+.energy-box { margin-left: 10px; }
+.score-box + .score-box, .energy-box + .score-box { margin-left: 10px; }
+.pips { display: flex; gap: 3px; justify-content: center; margin-top: 3px; }
+.pip { width: 11px; height: 11px; border-radius: 50%; background: #334155; border: 1px solid #94a3b8; }
+.pip.on { background: #facc15; border-color: #fde047; box-shadow: 0 0 6px #facc15; }
+
+/* ---------- Hands & cards ---------- */
+.hand { display: flex; gap: 10px; justify-content: center; min-height: 152px; padding: 4px 0; }
+.card { width: 112px; height: 150px; flex: 0 0 auto; border-radius: 10px; padding: 7px 8px; cursor: pointer;
+  background: linear-gradient(180deg, #fffdf5, #f3ead3); color: #1c1917; position: relative;
+  border: 3px solid #78716c; box-shadow: 0 4px 10px rgba(0,0,0,.5); transition: transform .15s, box-shadow .15s;
+  display: flex; flex-direction: column; user-select: none; text-align: left; font-family: inherit; }
+.card:hover:not(:disabled) { transform: translateY(-12px) scale(1.04); box-shadow: 0 10px 18px rgba(0,0,0,.6); }
+.card:disabled { cursor: not-allowed; opacity: .55; }
+.card.el-ember { border-color: #ea580c; } .card.el-frost { border-color: #0284c7; }
+.card.el-tide { border-color: #2563eb; } .card.el-stone { border-color: #a16207; }
+.card-cost { position: absolute; top: -8px; left: -8px; width: 28px; height: 28px; border-radius: 50%;
+  background: #1e3a8a; color: #fff; font-weight: 800; font-size: 15px; display: flex; align-items: center;
+  justify-content: center; border: 2px solid #facc15; }
+.card-name { font-size: 12.5px; font-weight: 800; line-height: 1.15; min-height: 28px; text-align: center; }
+.card-glyph { font-size: 34px; text-align: center; line-height: 1.1; margin: 2px 0; }
+.card-power { text-align: center; font-size: 13px; font-weight: 800; color: #991b1b; }
+.card-text { font-size: 11px; line-height: 1.25; text-align: center; margin-top: 3px; }
+.card-flavor { margin-top: auto; font-size: 9.5px; font-style: italic; color: #78716c; text-align: center; line-height: 1.2; }
+.card.el-ember .card-power { color: #c2410c; } .card.el-frost .card-power { color: #0369a1; }
+.card.el-tide .card-power { color: #1d4ed8; } .card.el-stone .card-power { color: #92400e; }
+.card-back { width: 86px; height: 120px; flex: 0 0 auto; border-radius: 9px; border: 3px solid #d4af37;
+  background: repeating-linear-gradient(45deg, #7c2d12 0 12px, #9a3412 12px 24px);
+  display: flex; align-items: center; justify-content: center; font-size: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.5); }
+.opponent-hand .card-back { width: 72px; height: 92px; font-size: 26px; }
+.opponent-hand { min-height: 100px; }
+
+/* ---------- Arena ---------- */
+.attunement { background: rgba(0,0,0,.45); border: 1px solid #d4af37; border-radius: 20px;
+  padding: 5px 18px; font-size: 14px; font-weight: 600; }
+.arena-card { min-height: 162px; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
+.arena-card .card { cursor: default; width: 124px; height: 168px; }
+.arena-card .card:hover { transform: none; box-shadow: 0 4px 10px rgba(0,0,0,.5); }
+.arena-placeholder { color: rgba(245,240,225,.55); font-style: italic; font-size: 14px; }
+.log { width: min(760px, 92%); background: rgba(0,0,0,.4); border-radius: 8px; padding: 6px 12px;
+  font-size: 12.5px; line-height: 1.5; max-height: 60px; overflow: hidden; color: #e7e5e4; }
+.log div:last-child { color: #fde68a; font-weight: 600; }
+
+/* ---------- Controls ---------- */
+.controls { display: flex; align-items: center; gap: 14px; justify-content: center; padding-bottom: 4px; }
+.btn { font-family: inherit; font-size: 15px; font-weight: 800; border: none; border-radius: 10px;
+  padding: 10px 26px; cursor: pointer; }
+.btn.gold { background: linear-gradient(180deg, #fde047, #d4af37); color: #1a1207; box-shadow: 0 4px 0 #926f12; }
+.btn.gold:hover { filter: brightness(1.07); }
+.btn.gold:active { transform: translateY(2px); box-shadow: 0 2px 0 #926f12; }
+.btn.big { font-size: 19px; padding: 14px 44px; }
+.hint { font-size: 12px; color: rgba(245,240,225,.65); }
+
+/* ---------- Title screen ---------- */
+#title-screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 30%, #14532d 0%, #071f12 75%); z-index: 10; }
+.title-inner { text-align: center; max-width: 680px; padding: 24px; }
+.title-elements { font-size: 40px; letter-spacing: 18px; }
+.title-inner h1 { font-family: Georgia, "Times New Roman", serif; font-size: 64px; margin: 8px 0 0; letter-spacing: 6px;
+  background: linear-gradient(180deg, #fef08a, #d4af37 60%, #b45309); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.title-inner h1 .amp { font-size: 44px; }
+.subtitle { font-size: 20px; letter-spacing: 8px; text-transform: uppercase; color: #d8d2bd; margin: 4px 0 14px; }
+.tagline { font-size: 15px; color: #e7e5e4; margin: 0 0 16px; }
+.legend { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+.chip { font-size: 12.5px; font-weight: 700; padding: 6px 12px; border-radius: 16px; background: rgba(0,0,0,.4); border: 1px solid; }
+.chip.ember { border-color: #ea580c; color: #fdba74; } .chip.frost { border-color: #38bdf8; color: #bae6fd; }
+.chip.tide { border-color: #60a5fa; color: #bfdbfe; } .chip.stone { border-color: #d6a860; color: #fde68a; }
+.rules-box { background: rgba(0,0,0,.4); border: 1px solid rgba(212,175,55,.5); border-radius: 10px;
+  padding: 12px 18px; font-size: 13.5px; line-height: 1.55; text-align: left; margin-bottom: 20px; }
+.rules-box em { color: #fde68a; font-style: normal; font-weight: 700; }
+.foot { font-size: 12px; color: rgba(245,240,225,.55); margin-top: 16px; }
+
+/* ---------- End screen ---------- */
+#end-screen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(3, 15, 8, .82); z-index: 20; }
+.end-inner { text-align: center; background: rgba(0,0,0,.55); border: 2px solid #d4af37; border-radius: 16px; padding: 36px 64px; }
+.end-glyph { font-size: 64px; }
+.end-inner h2 { font-family: Georgia, serif; font-size: 52px; letter-spacing: 8px; margin: 8px 0; color: #fde047; }
+.end-inner.defeat h2 { color: #fca5a5; }
+.end-line { font-size: 16px; font-style: italic; color: #e7e5e4; margin: 0 0 18px; }
+.end-stats { display: flex; gap: 28px; justify-content: center; font-size: 13px; color: #d8d2bd; margin-bottom: 22px; }
+.end-stats strong { display: block; font-size: 24px; color: #fff; }
