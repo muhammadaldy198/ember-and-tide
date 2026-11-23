@@ -62,6 +62,5 @@ writeFileSync(
     game_path_max_bytes: 1000,
   }),
 );
-chmodSync(out, 0o755);
 makeReadable(out);
 console.log(`Handed in: game/ + screenshots/ + dossier.json under ${out}`);
